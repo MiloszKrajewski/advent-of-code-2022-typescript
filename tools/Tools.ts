@@ -19,4 +19,4 @@ export const deepCopy = <T>(obj: T) => JSON.parse(JSON.stringify(obj)) as T;
 export const fail = <T>(message: string): T => { throw new Error(message); };
 
 export const loadText = (path: string): string => fs.readFileSync(path, 'utf8');
-export const loadLines = (path: string): string[] => fs.readFileSync(path, 'utf8').split(/\r?\n/);
+export const loadLines = (path: string): string[] => loadText(path).split(/\r?\n/);
