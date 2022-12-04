@@ -20,3 +20,29 @@ export const fail = <T>(message: string): T => { throw new Error(message); };
 
 export const loadText = (path: string): string => fs.readFileSync(path, 'utf8');
 export const loadLines = (path: string): string[] => loadText(path).split(/\r?\n/);
+
+export function* dfs<N, K>(node: N, identity: (node: N) => K, children: (node: N) => N[]) {
+	const stack: N[] = [node];
+	const visited = new Set<K>();
+	while (stack.length > 0) {
+		const node = stack.pop()!;
+		const key = identity(node);
+		if (visited.has(key)) continue;
+		visited.add(key);
+		yield node;
+		stack.push(...[...children(node)].reverse());
+	}
+}
+
+export function* bfs<N, K>(node: N, identity: (node: N) => K, children: (node: N) => N[]) {
+	const queue: N[] = [node];
+	const visited = new Set<K>();
+	while (queue.length > 0) {
+		const node = queue.shift()!;
+		const key = identity(node);
+		if (visited.has(key)) continue;
+		visited.add(key);
+		yield node;
+		queue.push(...children(node));
+	}
+}

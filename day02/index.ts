@@ -28,7 +28,6 @@ subtest(tap, "day02", (t) => {
         const result = data.sumBy(([his, outcome]) => points(his, findMove(his, outcome)));
         t.pass("total number is " + result);
     });
-
 });
 
 function* loadInput(filename: string) {
